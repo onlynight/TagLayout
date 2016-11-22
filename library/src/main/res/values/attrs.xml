@@ -2,6 +2,9 @@
 <resources>
 
     <declare-styleable name="TagLayout">
+
+        <!-- set the max select count;
+        the default value is 1, it means you can select one item at the same time.-->
         <attr name="maxSelectCount" format="integer|enum">
             <enum name="all" value="-1"/>
             <enum name="single" value="1"/>
