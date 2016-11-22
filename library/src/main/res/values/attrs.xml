@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TagLayout">
+        <attr name="maxSelectCount" format="integer|enum">
+            <enum name="all" value="-1"/>
+            <enum name="single" value="1"/>
+            <enum name="none" value="0"/>
+        </attr>
+    </declare-styleable>
+
+</resources>
