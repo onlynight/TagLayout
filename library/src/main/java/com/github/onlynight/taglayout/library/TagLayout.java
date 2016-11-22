@@ -332,6 +332,20 @@ public class TagLayout extends ViewGroup {
         }
     }
 
+    /**
+     * set the tag layout max select count.</p>
+     * this method is the same as {@link TagLayout#setSelectMode(int)}
+     *
+     * @param maxSelectCount it is bigger than 0,</p>
+     *                       the -1 is means you can select all tag item.</p>
+     *                       {@link TagLayout.SELECT_MODE_ALL} can select all.</p>
+     *                       {@link TagLayout.SELECT_MODE_NONE} can select none.</p>
+     *                       {@link TagLayout.SELECT_MODE_SINGLE} can select one.</p>
+     */
+    public void setMaxSelectCount(int maxSelectCount) {
+        setSelectMode(maxSelectCount);
+    }
+
     public interface OnTagItemSelectedListener {
         void onSelected(boolean selected, int currentSelected, List<Integer> allSelected);
 

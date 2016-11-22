@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSelectMode() {
-        tagLayout.setSelectMode(4);
+        tagLayout.setSelectMode(TagLayout.SELECT_MODE_SINGLE);
+        // this method is the same as setSelectMode();
+        // tagLayout.setMaxSelectCount(1);
     }
 
     private void setSelect() {
