@@ -2,6 +2,7 @@ package com.github.onlynight.taglayout;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.github.onlynight.taglayout.library.TagLayout;
@@ -13,6 +14,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TagLayout tagLayout;
+
+    private TagAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 20; i++) {
             data.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
         }
-        TagAdapter adapter = new TagAdapter(this);
+        adapter = new TagAdapter(this);
         adapter.addTags(data);
         tagLayout.setAdapter(adapter);
     }
@@ -70,5 +73,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onClickUpdateButton(View view) {
+        List<Tag> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
+        }
+        adapter.clear();
+        adapter.addTags(data);
+        adapter.notifyDataSetChanged();
+//        tagLayout.setAdapter(adapter);
     }
 }

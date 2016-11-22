@@ -2,6 +2,7 @@ package com.github.onlynight.taglayout.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
@@ -52,6 +53,14 @@ public class TagLayout extends ViewGroup {
 
     private BaseAdapter mAdapter;
     private OnTagItemSelectedListener onTagItemSelectedListener;
+    private boolean registedDataObserver = false;
+
+    private DataSetObserver dataSetObserver = new DataSetObserver() {
+        @Override
+        public void onChanged() {
+            setAdapter(mAdapter);
+        }
+    };
 
     public void setOnTagItemSelectedListener(OnTagItemSelectedListener onTagItemSelectedListener) {
         this.onTagItemSelectedListener = onTagItemSelectedListener;
@@ -97,9 +106,17 @@ public class TagLayout extends ViewGroup {
     public void setAdapter(BaseAdapter adapter) {
         this.mAdapter = adapter;
         removeAllViews();
+        if (mAdapter == null) {
+            return;
+        }
+
+        if (!registedDataObserver) {
+            registedDataObserver = true;
+            mAdapter.registerDataSetObserver(dataSetObserver);
+        }
+
         for (int i = 0; i < this.mAdapter.getCount(); i++) {
-            final int index = i;
-            final View child = this.mAdapter.getView(i, null, this);
+            View child = this.mAdapter.getView(i, null, this);
             addView(child);
         }
         setSelectMode(mMaxSelectCount);

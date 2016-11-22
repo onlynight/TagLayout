@@ -15,4 +15,10 @@
         android:layout_height="wrap_content"
         app:maxSelectCount="none"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickUpdateButton"
+        android:text="@string/update_adapter"/>
+
 </LinearLayout>

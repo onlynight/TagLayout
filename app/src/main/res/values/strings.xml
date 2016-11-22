@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TagLayout</string>
     <string name="tag">TAG</string>
+    <string name="update_adapter">UPDATE ADAPTER</string>
 </resources>
