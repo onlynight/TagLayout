@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSelectMode() {
-        tagLayout.setSelectMode(TagLayout.SELECT_MODE_SINGLE);
+        tagLayout.setSelectMode(3);
         // this method is the same as setSelectMode();
         // tagLayout.setMaxSelectCount(1);
     }
@@ -83,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         adapter.clear();
         adapter.addTags(data);
         adapter.notifyDataSetChanged();
+        tagLayout.setMaxSelectCount(1);
+        List<Integer> select = new LinkedList<>();
+        select.add(1);
+        tagLayout.setSelect(select);
 //        tagLayout.setAdapter(adapter);
     }
 }

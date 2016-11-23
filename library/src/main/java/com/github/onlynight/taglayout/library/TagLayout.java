@@ -329,6 +329,11 @@ public class TagLayout extends ViewGroup {
                         if (mMaxSelectCount == 1) {
                             clearSelect();
                             child.setSelected(!child.isSelected());
+                            if (onTagItemSelectedListener != null) {
+                                List<Integer> selected = getSelected();
+                                onTagItemSelectedListener.onSelected(child.isSelected(),
+                                        index, selected);
+                            }
                         } else if (mMaxSelectCount > 1) {
                             List<Integer> selected = getSelected();
                             if (selected.size() >= mMaxSelectCount) {
