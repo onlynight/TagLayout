@@ -53,7 +53,7 @@ public class TagLayout extends ViewGroup {
 
     private BaseAdapter mAdapter;
     private OnTagItemSelectedListener onTagItemSelectedListener;
-    private boolean registedDataObserver = false;
+    private boolean registeredDataObserver = false;
 
     private DataSetObserver dataSetObserver = new DataSetObserver() {
         @Override
@@ -62,6 +62,12 @@ public class TagLayout extends ViewGroup {
         }
     };
 
+    /**
+     * To set this listener you can listen item select action and
+     * listen there're no more tag can be selected
+     *
+     * @param onTagItemSelectedListener
+     */
     public void setOnTagItemSelectedListener(OnTagItemSelectedListener onTagItemSelectedListener) {
         this.onTagItemSelectedListener = onTagItemSelectedListener;
     }
@@ -99,10 +105,20 @@ public class TagLayout extends ViewGroup {
         }
     }
 
+    /**
+     * get the max select count
+     *
+     * @return
+     */
     public int getMaxSelectCount() {
         return mMaxSelectCount;
     }
 
+    /**
+     * set the base adapter
+     *
+     * @param adapter
+     */
     public void setAdapter(BaseAdapter adapter) {
         this.mAdapter = adapter;
         removeAllViews();
@@ -110,8 +126,8 @@ public class TagLayout extends ViewGroup {
             return;
         }
 
-        if (!registedDataObserver) {
-            registedDataObserver = true;
+        if (!registeredDataObserver) {
+            registeredDataObserver = true;
             mAdapter.registerDataSetObserver(dataSetObserver);
         }
 
