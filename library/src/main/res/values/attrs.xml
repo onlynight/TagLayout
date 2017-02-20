@@ -10,6 +10,7 @@
             <enum name="single" value="1"/>
             <enum name="none" value="0"/>
         </attr>
+        <attr name="singleLine" format="boolean"/>
     </declare-styleable>
 
 </resources>

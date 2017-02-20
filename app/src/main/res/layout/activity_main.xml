@@ -21,4 +21,23 @@
         android:onClick="onClickUpdateButton"
         android:text="@string/update_adapter"/>
 
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.github.onlynight.taglayout.library.TagLayout
+                android:id="@+id/tagLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:maxSelectCount="none"
+                app:singleLine="true"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 </LinearLayout>

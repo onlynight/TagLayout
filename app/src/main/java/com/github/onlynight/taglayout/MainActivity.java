@@ -14,8 +14,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private TagLayout tagLayout;
+    private TagLayout tagLayout1;
 
     private TagAdapter adapter;
+    private TagAdapter adapter1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tagLayout = (TagLayout) findViewById(R.id.tagLayout);
+        tagLayout1 = (TagLayout) findViewById(R.id.tagLayout1);
+
         initAdapter();
         setSelectMode();
         setSelect();
@@ -31,16 +35,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdapter() {
         List<Tag> data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 3; i++) {
             data.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
         }
         adapter = new TagAdapter(this);
         adapter.addTags(data);
         tagLayout.setAdapter(adapter);
+
+        List<Tag> data1 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data1.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
+        }
+        adapter1 = new TagAdapter(this);
+        adapter1.addTags(data1);
+        tagLayout1.setAdapter(adapter1);
     }
 
     private void setSelectMode() {
-        tagLayout.setSelectMode(3);
+        tagLayout.setSelectMode(TagLayout.SELECT_MODE_SINGLE);
+        tagLayout1.setSelectMode(TagLayout.SELECT_MODE_ALL);
         // this method is the same as setSelectMode();
         // tagLayout.setMaxSelectCount(1);
     }

@@ -51,6 +51,11 @@ public class TagLayout extends ViewGroup {
      */
     private int mMaxSelectCount = 1;
 
+    /**
+     * Is the single line.
+     */
+    private boolean mIsSingleLine = false;
+
     private BaseAdapter mAdapter;
     private OnTagItemSelectedListener onTagItemSelectedListener;
     private boolean registeredDataObserver = false;
@@ -102,6 +107,7 @@ public class TagLayout extends ViewGroup {
         if (array != null) {
             mMaxSelectCount = array.getInteger(
                     R.styleable.TagLayout_maxSelectCount, 1);
+            mIsSingleLine = array.getBoolean(R.styleable.TagLayout_singleLine, false);
         }
     }
 
@@ -152,7 +158,7 @@ public class TagLayout extends ViewGroup {
 
             lineWidth += child.getMeasuredWidth() + layoutParams.leftMargin
                     + layoutParams.rightMargin;
-            if (lineWidth >= width) {
+            if (lineWidth > width) {
                 lines++;
                 lineWidth = child.getMeasuredWidth() + layoutParams.leftMargin
                         + layoutParams.rightMargin;
@@ -184,26 +190,50 @@ public class TagLayout extends ViewGroup {
         mMaxHeight = 0;
         int eachLineHeight = 0;
 
-        for (int i = 0; i < getChildCount(); i++) {
-            MarginLayoutParams params = (MarginLayoutParams)
-                    getChildAt(i).getLayoutParams();
+        if (mIsSingleLine) {
+            for (int i = 0; i < getChildCount(); i++) {
+                MarginLayoutParams params = (MarginLayoutParams)
+                        getChildAt(i).getLayoutParams();
 
-            // calculate child total size include margin.
-            childWidth = getChildAt(i).getMeasuredWidth() +
-                    params.leftMargin + params.rightMargin;
-            childHeight = getChildAt(i).getMeasuredHeight() +
-                    params.topMargin + params.bottomMargin;
-            eachLineHeight = childHeight;
+                // calculate child total size include margin.
+                childWidth = getChildAt(i).getMeasuredWidth() +
+                        params.leftMargin + params.rightMargin;
+                childHeight = getChildAt(i).getMeasuredHeight() +
+                        params.topMargin + params.bottomMargin;
+                eachLineHeight = childHeight;
 
-            lineWidth += childWidth;
-            if (lineWidth >= widthSpecSize) {
-                lines++;
-                lineWidth = childWidth;
-                mMaxWidth = widthSpecSize;
+//                lineWidth += childWidth;
+//                if (lineWidth >= widthSpecSize) {
+//                    lines++;
+//                    lineWidth = childWidth;
+//                    mMaxWidth = widthSpecSize;
+//                }
+                mMaxWidth += childWidth;
             }
-        }
 
-        mMaxHeight = eachLineHeight * lines;
+            mMaxHeight = eachLineHeight;
+        } else {
+            for (int i = 0; i < getChildCount(); i++) {
+                MarginLayoutParams params = (MarginLayoutParams)
+                        getChildAt(i).getLayoutParams();
+
+                // calculate child total size include margin.
+                childWidth = getChildAt(i).getMeasuredWidth() +
+                        params.leftMargin + params.rightMargin;
+                childHeight = getChildAt(i).getMeasuredHeight() +
+                        params.topMargin + params.bottomMargin;
+                eachLineHeight = childHeight;
+
+                lineWidth += childWidth;
+                if (lineWidth >= widthSpecSize) {
+                    lines++;
+                    lineWidth = childWidth;
+                    mMaxWidth = widthSpecSize;
+                }
+            }
+
+            mMaxHeight = eachLineHeight * lines;
+        }
 
         setSelfSize(widthSpecMode, widthSpecSize, heightSpecMode, heightSpecSize);
     }
@@ -221,24 +251,46 @@ public class TagLayout extends ViewGroup {
         int finalWidth = 0;
         int finalHeight = 0;
 
-        switch (widthSpecMode) {
-            case MeasureSpec.EXACTLY:
-            case MeasureSpec.UNSPECIFIED:
-                finalWidth = widthSpecSize;
-                break;
-            case MeasureSpec.AT_MOST:
-                finalWidth = mMaxWidth;
-                break;
-        }
+        if (mIsSingleLine) {
+            switch (widthSpecMode) {
+                case MeasureSpec.EXACTLY:
+                case MeasureSpec.UNSPECIFIED:
+                    finalWidth = mMaxWidth > widthSpecSize ? mMaxWidth : widthSpecSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    finalWidth = mMaxWidth;
+                    break;
+            }
 
-        switch (heightSpecMode) {
-            case MeasureSpec.EXACTLY:
-            case MeasureSpec.UNSPECIFIED:
-                finalHeight = heightSpecSize;
-                break;
-            case MeasureSpec.AT_MOST:
-                finalHeight = mMaxHeight;
-                break;
+            switch (heightSpecMode) {
+                case MeasureSpec.EXACTLY:
+                case MeasureSpec.UNSPECIFIED:
+                    finalHeight = mMaxHeight < heightSpecSize ? mMaxHeight : heightSpecSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    finalHeight = mMaxHeight;
+                    break;
+            }
+        } else {
+            switch (widthSpecMode) {
+                case MeasureSpec.EXACTLY:
+                case MeasureSpec.UNSPECIFIED:
+                    finalWidth = widthSpecSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    finalWidth = mMaxWidth;
+                    break;
+            }
+
+            switch (heightSpecMode) {
+                case MeasureSpec.EXACTLY:
+                case MeasureSpec.UNSPECIFIED:
+                    finalHeight = heightSpecSize;
+                    break;
+                case MeasureSpec.AT_MOST:
+                    finalHeight = mMaxHeight;
+                    break;
+            }
         }
 
         setMeasuredDimension(finalWidth, finalHeight);
@@ -293,11 +345,22 @@ public class TagLayout extends ViewGroup {
 
         clearSelect();
 
+        if (mMaxSelectCount == 0) {
+            return;
+        }
+
         for (int i = 0; i < items.size(); i++) {
-            if (i + 1 <= mMaxSelectCount) {
-                if (items.get(i) + 1 < getChildCount()) {
+            if (mMaxSelectCount == 1) {
+                if (items.get(i) < getChildCount()) {
                     View child = getChildAt(items.get(i));
                     child.setSelected(true);
+                }
+            } else {
+                if (i + 1 <= mMaxSelectCount) {
+                    if (items.get(i) < getChildCount()) {
+                        View child = getChildAt(items.get(i));
+                        child.setSelected(true);
+                    }
                 }
             }
         }
