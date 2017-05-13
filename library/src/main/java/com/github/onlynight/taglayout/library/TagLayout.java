@@ -47,7 +47,7 @@ public class TagLayout extends ViewGroup {
     /**
      * save the max select count.</p>
      * it is also select mode.
-     * {@link SELECT_MODE_ALL},{@link SELECT_MODE_NONE},{@link SELECT_MODE_SINGLE}
+     * {@link this#SELECT_MODE_ALL},{@link this#SELECT_MODE_NONE},{@link this#SELECT_MODE_SINGLE}
      */
     private int mMaxSelectCount = 1;
 
@@ -369,9 +369,9 @@ public class TagLayout extends ViewGroup {
     /**
      * set the select mode.
      *
-     * @param selectModeOrMaxSelectCount {@link TagLayout.SELECT_MODE_ALL} can select all.</p>
-     *                                   {@link TagLayout.SELECT_MODE_NONE} can select none.</p>
-     *                                   {@link TagLayout.SELECT_MODE_SINGLE} can select one.</p>
+     * @param selectModeOrMaxSelectCount {@link TagLayout#SELECT_MODE_ALL} can select all.</p>
+     *                                   {@link TagLayout#SELECT_MODE_NONE} can select none.</p>
+     *                                   {@link TagLayout#SELECT_MODE_SINGLE} can select one.</p>
      *                                   or you can set the max select count you want.</p>
      */
     public void setSelectMode(int selectModeOrMaxSelectCount) {
@@ -439,9 +439,9 @@ public class TagLayout extends ViewGroup {
      *
      * @param maxSelectCount it is bigger than 0,</p>
      *                       the -1 is means you can select all tag item.</p>
-     *                       {@link TagLayout.SELECT_MODE_ALL} can select all.</p>
-     *                       {@link TagLayout.SELECT_MODE_NONE} can select none.</p>
-     *                       {@link TagLayout.SELECT_MODE_SINGLE} can select one.</p>
+     *                       {@link TagLayout#SELECT_MODE_ALL} can select all.</p>
+     *                       {@link TagLayout#SELECT_MODE_NONE} can select none.</p>
+     *                       {@link TagLayout#SELECT_MODE_SINGLE} can select one.</p>
      */
     public void setMaxSelectCount(int maxSelectCount) {
         setSelectMode(maxSelectCount);
