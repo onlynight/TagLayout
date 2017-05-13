@@ -24,7 +24,7 @@ And in your module path build.gradle file, add this:
 
 ```groovy
 dependencies {
-    compile 'com.github.onlynight:TagLayout:1.0.1'
+    compile 'com.github.onlynight:TagLayout:1.2.0'
 }
 ```
 
