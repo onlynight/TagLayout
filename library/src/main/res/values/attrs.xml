@@ -10,7 +10,18 @@
             <enum name="single" value="1"/>
             <enum name="none" value="0"/>
         </attr>
+
+        <!-- is the all item in one line, the default value is false -->
         <attr name="singleLine" format="boolean"/>
+
+        <!-- set the max item in one line the default is -1,
+        that means view will auto calculate the child in one line.-->
+        <attr name="maxItemsInOneLine" format="integer"/>
+
+        <!-- if the item has equal width, the default is false.
+        this property only when you set maxItemsInOneLine property,
+        then this will effect-->
+        <attr name="isItemsEqualWidth" format="boolean"/>
     </declare-styleable>
 
 </resources>

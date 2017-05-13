@@ -56,6 +56,16 @@ public class TagLayout extends ViewGroup {
      */
     private boolean mIsSingleLine = false;
 
+    /**
+     * is the item equal width
+     */
+    private boolean mIsItemsEqualWidth = false;
+
+    /**
+     * the max items in one line
+     */
+    private int mMaxItemsInOneLine = -1;
+
     private BaseAdapter mAdapter;
     private OnTagItemSelectedListener onTagItemSelectedListener;
     private boolean registeredDataObserver = false;
@@ -108,6 +118,10 @@ public class TagLayout extends ViewGroup {
             mMaxSelectCount = array.getInteger(
                     R.styleable.TagLayout_maxSelectCount, 1);
             mIsSingleLine = array.getBoolean(R.styleable.TagLayout_singleLine, false);
+            mMaxItemsInOneLine = array.getInteger(
+                    R.styleable.TagLayout_maxItemsInOneLine, -1);
+            mIsItemsEqualWidth = array.getBoolean(
+                    R.styleable.TagLayout_isItemsEqualWidth, false);
         }
     }
 
@@ -147,6 +161,14 @@ public class TagLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int width = getWidth();
+        if (mMaxItemsInOneLine == -1) {
+            layoutUnlimitItem(width);
+        } else {
+            layoutLimitItem(width);
+        }
+    }
+
+    private void layoutUnlimitItem(int width) {
         int lines = 0;
         int lineWidth = 0;
         int lineHeight = 0;
@@ -169,6 +191,42 @@ public class TagLayout extends ViewGroup {
             child.layout(lineWidth - child.getMeasuredWidth() - layoutParams.rightMargin,
                     lineHeight + layoutParams.topMargin,
                     lineWidth - layoutParams.rightMargin,
+                    lineHeight + layoutParams.topMargin + child.getMeasuredHeight());
+        }
+    }
+
+    private void layoutLimitItem(int width) {
+        int lines = 0;
+        int lineHeight = 0;
+
+        int itemTotalWidth = 0;
+
+        if (mIsItemsEqualWidth) {
+            itemTotalWidth = width / mMaxItemsInOneLine;
+        }
+
+        int x = 0;
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            MarginLayoutParams layoutParams =
+                    (MarginLayoutParams) child.getLayoutParams();
+
+            if (!mIsItemsEqualWidth) {
+                itemTotalWidth = child.getMeasuredWidth() +
+                        layoutParams.leftMargin + layoutParams.rightMargin;
+            }
+
+            if (i % mMaxItemsInOneLine == 0 && i != 0) {
+                lines++;
+                lineHeight = lines * (child.getMeasuredHeight() +
+                        layoutParams.topMargin + layoutParams.bottomMargin);
+            }
+
+            x = i % mMaxItemsInOneLine * itemTotalWidth;
+
+            child.layout(x + layoutParams.leftMargin,
+                    lineHeight + layoutParams.topMargin,
+                    x + itemTotalWidth - layoutParams.rightMargin,
                     lineHeight + layoutParams.topMargin + child.getMeasuredHeight());
         }
     }

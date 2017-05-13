@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initAdapter() {
         List<Tag> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             data.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
         }
         adapter = new TagAdapter(this);
