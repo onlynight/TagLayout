@@ -1,7 +1,7 @@
 TagLayout
 =========
 
-#Preview
+# Preview
 
 ![TagLayout Preview](./images/taglayout.gif)
 
@@ -28,7 +28,7 @@ dependencies {
 }
 ```
 
-#Sample Code
+# Sample Code
 
 xml layout file:
 
@@ -107,7 +107,7 @@ private void setListener() {
 
 You need a adapter extends BaseAdapter just like ListView’s Adapter.
 
-#XML property explain
+# XML property explain
 
 ```xml
 <declare-styleable name="TagLayout">
@@ -134,7 +134,7 @@ You need a adapter extends BaseAdapter just like ListView’s Adapter.
 </declare-styleable>
 ```
 
-#API explain
+# API explain
 
 ```java
 /**
@@ -201,7 +201,7 @@ public void setSelectMode(int selectModeOrMaxSelectCount);
 public void setMaxSelectCount(int maxSelectCount);
 ```
 
-#License
+# License
 
 ```
 Copyright 2016 onlynight
