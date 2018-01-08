@@ -7,7 +7,7 @@ TagLayout
 
 ![TagLayout Preview](./images/taglayout2.gif)
 
-#build.gradle
+# build.gradle
 
 In your project root path build.gradle file, add this:
 
