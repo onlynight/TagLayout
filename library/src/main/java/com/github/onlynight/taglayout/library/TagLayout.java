@@ -435,9 +435,17 @@ public class TagLayout extends ViewGroup {
     public void setSelectMode(int selectModeOrMaxSelectCount) {
         this.mMaxSelectCount = selectModeOrMaxSelectCount;
 
-        if (mMaxSelectCount == 0) {
+        if (mMaxSelectCount == SELECT_MODE_NONE) {
             for (int i = 0; i < this.mAdapter.getCount(); i++) {
-                getChildAt(i).setOnClickListener(null);
+                final int index = i;
+                getChildAt(i).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onTagItemSelectedListener != null) {
+                            onTagItemSelectedListener.onItemClick(index);
+                        }
+                    }
+                });
             }
             clearSelect();
         } else {
@@ -484,16 +492,6 @@ public class TagLayout extends ViewGroup {
                                 onTagItemSelectedListener.onSelected(
                                         child.isSelected(), index, selected);
                             }
-                        } else if (mMaxSelectCount == SELECT_MODE_NONE) {
-                            if (onTagItemSelectedListener != null) {
-                                onTagItemSelectedListener.onSelected(
-                                        child.isSelected(), index, null);
-                            }
-                        } else {
-                            if (onTagItemSelectedListener != null) {
-                                onTagItemSelectedListener.onSelected(
-                                        child.isSelected(), index, null);
-                            }
                         }
                     }
                 });
@@ -517,6 +515,8 @@ public class TagLayout extends ViewGroup {
 
     public interface OnTagItemSelectedListener {
         void onSelected(boolean selected, int currentSelected, List<Integer> allSelected);
+
+        void onItemClick(int position);
 
         void onCanNotSelectMore(boolean selected, int currentSelected, List<Integer> allSelected);
     }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -15,13 +14,13 @@
         android:layout_height="wrap_content"
         app:isItemsEqualWidth="true"
         app:maxItemsInOneLine="3"
-        app:maxSelectCount="none"/>
+        app:maxSelectCount="none" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickUpdateButton"
-        android:text="@string/update_adapter"/>
+        android:text="@string/update_adapter" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -36,10 +35,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:maxSelectCount="none"
-                app:singleLine="true"/>
+                app:singleLine="true" />
 
         </LinearLayout>
 
     </HorizontalScrollView>
+
+    <com.github.onlynight.taglayout.library.TagLayout
+        android:id="@+id/tagLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:maxItemsInOneLine="3"
+        app:maxSelectCount="none" />
 
 </LinearLayout>

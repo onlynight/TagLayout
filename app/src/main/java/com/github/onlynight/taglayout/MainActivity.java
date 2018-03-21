@@ -15,9 +15,11 @@ public class MainActivity extends AppCompatActivity {
 
     private TagLayout tagLayout;
     private TagLayout tagLayout1;
+    private TagLayout tagLayout2;
 
     private TagAdapter adapter;
     private TagAdapter adapter1;
+    private TagAdapter adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         tagLayout = (TagLayout) findViewById(R.id.tagLayout);
         tagLayout1 = (TagLayout) findViewById(R.id.tagLayout1);
+        tagLayout2 = (TagLayout) findViewById(R.id.tagLayout2);
 
         initAdapter();
         setSelectMode();
@@ -49,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
         adapter1 = new TagAdapter(this);
         adapter1.addTags(data1);
         tagLayout1.setAdapter(adapter1);
+
+        List<Tag> data2 = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data2.add(new Tag(getResources().getString(R.string.tag) + (i + 1)));
+        }
+        adapter2 = new TagAdapter(this);
+        adapter2.addTags(data2);
+        tagLayout2.setAdapter(adapter2);
     }
 
     private void setSelectMode() {
@@ -80,10 +91,29 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onItemClick(int position) {
+            }
+
+            @Override
             public void onCanNotSelectMore(boolean selected, int currentSelected, List<Integer> allSelected) {
                 Toast.makeText(MainActivity.this,
                         "the MAX select item is " + tagLayout.getMaxSelectCount(),
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+        tagLayout2.setOnTagItemSelectedListener(new TagLayout.OnTagItemSelectedListener() {
+            @Override
+            public void onSelected(boolean selected, int currentSelected, List<Integer> allSelected) {
+            }
+
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "click position = " + position, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCanNotSelectMore(boolean selected, int currentSelected, List<Integer> allSelected) {
+
             }
         });
     }
