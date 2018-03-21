@@ -447,7 +447,7 @@ public class TagLayout extends ViewGroup {
                 child.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mMaxSelectCount == 1) {
+                        if (mMaxSelectCount == SELECT_MODE_SINGLE) {
                             clearSelect();
                             child.setSelected(!child.isSelected());
                             if (onTagItemSelectedListener != null) {
@@ -477,12 +477,22 @@ public class TagLayout extends ViewGroup {
                                             child.isSelected(), index, selected);
                                 }
                             }
-                        } else if (mMaxSelectCount == -1) {
+                        } else if (mMaxSelectCount == SELECT_MODE_ALL) {
                             child.setSelected(!child.isSelected());
                             if (onTagItemSelectedListener != null) {
                                 List<Integer> selected = getSelected();
                                 onTagItemSelectedListener.onSelected(
                                         child.isSelected(), index, selected);
+                            }
+                        } else if (mMaxSelectCount == SELECT_MODE_NONE) {
+                            if (onTagItemSelectedListener != null) {
+                                onTagItemSelectedListener.onSelected(
+                                        child.isSelected(), index, null);
+                            }
+                        } else {
+                            if (onTagItemSelectedListener != null) {
+                                onTagItemSelectedListener.onSelected(
+                                        child.isSelected(), index, null);
                             }
                         }
                     }
