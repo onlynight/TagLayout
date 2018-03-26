@@ -1,5 +1,6 @@
 package com.github.onlynight.taglayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -131,5 +132,9 @@ public class MainActivity extends AppCompatActivity {
         select.add(1);
         tagLayout.setSelect(select);
 //        tagLayout.setAdapter(adapter);
+    }
+
+    public void onClickRecycler(View view) {
+        startActivity(new Intent(this, RecyclerViewActivity.class));
     }
 }

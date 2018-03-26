@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TagLayout.iml" filepath="$PROJECT_DIR$/TagLayout.iml" />
-      <module fileurl="file://D:\Code\Android\GithubLibrary\TagLayout\TagLayout.iml" filepath="D:\Code\Android\GithubLibrary\TagLayout\TagLayout.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\Code\Android\GithubLibrary\TagLayout\app\app.iml" filepath="D:\Code\Android\GithubLibrary\TagLayout\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://D:\Code\Android\GithubLibrary\TagLayout\library\library.iml" filepath="D:\Code\Android\GithubLibrary\TagLayout\library\library.iml" />
     </modules>
   </component>
 </project>

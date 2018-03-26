@@ -322,9 +322,9 @@ public class TagLayout extends ViewGroup {
 
             switch (heightSpecMode) {
                 case MeasureSpec.EXACTLY:
-                case MeasureSpec.UNSPECIFIED:
                     finalHeight = mMaxHeight < heightSpecSize ? mMaxHeight : heightSpecSize;
                     break;
+                case MeasureSpec.UNSPECIFIED:
                 case MeasureSpec.AT_MOST:
                     finalHeight = mMaxHeight;
                     break;
@@ -342,16 +342,17 @@ public class TagLayout extends ViewGroup {
 
             switch (heightSpecMode) {
                 case MeasureSpec.EXACTLY:
-                case MeasureSpec.UNSPECIFIED:
                     finalHeight = heightSpecSize;
                     break;
+                case MeasureSpec.UNSPECIFIED:
                 case MeasureSpec.AT_MOST:
                     finalHeight = mMaxHeight;
                     break;
             }
         }
 
-        setMeasuredDimension(finalWidth, finalHeight);
+        setMeasuredDimension(finalWidth & MEASURED_SIZE_MASK,
+                finalHeight & MEASURED_SIZE_MASK);
     }
 
     /**

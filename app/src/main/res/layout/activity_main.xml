@@ -48,4 +48,10 @@
         app:maxItemsInOneLine="3"
         app:maxSelectCount="none" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickRecycler"
+        android:text="recycler demo" />
+
 </LinearLayout>
