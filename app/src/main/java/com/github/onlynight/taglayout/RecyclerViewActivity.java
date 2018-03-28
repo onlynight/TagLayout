@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.github.onlynight.taglayout.library.TagLayout;
 
@@ -35,7 +36,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private void fakeData() {
         List<String> data = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            data.add("add");
+            data.add("Loooooooooooooooooooooooooooooong tag");
         }
 
         mAdapter.setData(data);
@@ -71,26 +72,34 @@ public class RecyclerViewActivity extends AppCompatActivity {
             private TagLayout tagLayout;
             private TagAdapter adapter;
 
+            private List<String> tags = new ArrayList<>();
+
             public ViewHolder(View itemView) {
                 super(itemView);
                 tagLayout = (TagLayout) itemView.findViewById(R.id.tagLayout);
                 adapter = new TagAdapter();
                 tagLayout.setAdapter(adapter);
+
+                fakeData();
             }
 
             private void fakeData() {
+                for (int i = 0; i < 10; i++) {
+                    tags.add("Loooooooooooooooooooooooooooooooooooooooong Tag");
+                }
+                adapter.notifyDataSetChanged();
             }
 
             private class TagAdapter extends BaseAdapter {
 
                 @Override
                 public int getCount() {
-                    return 6;
+                    return tags.size();
                 }
 
                 @Override
                 public Object getItem(int position) {
-                    return "tag";
+                    return tags.get(position);
                 }
 
                 @Override
@@ -102,6 +111,8 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 public View getView(int position, View convertView, ViewGroup parent) {
                     View contentView = LayoutInflater.from(parent.getContext())
                             .inflate(R.layout.item_tag, parent, false);
+                    TextView textView = (TextView) contentView.findViewById(R.id.textTag);
+                    textView.setText(tags.get(position));
                     return contentView;
                 }
 

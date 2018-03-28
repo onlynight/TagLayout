@@ -271,23 +271,39 @@ public class TagLayout extends ViewGroup {
 
             mMaxHeight = eachLineHeight;
         } else {
-            for (int i = 0; i < getChildCount(); i++) {
-                MarginLayoutParams params = (MarginLayoutParams)
-                        getChildAt(i).getLayoutParams();
+            if (mMaxItemsInOneLine == -1) {
+                for (int i = 0; i < getChildCount(); i++) {
+                    MarginLayoutParams params = (MarginLayoutParams)
+                            getChildAt(i).getLayoutParams();
 
-                // calculate child total size include margin.
-                childWidth = getChildAt(i).getMeasuredWidth() +
-                        params.leftMargin + params.rightMargin;
-                childHeight = getChildAt(i).getMeasuredHeight() +
-                        params.topMargin + params.bottomMargin;
-                eachLineHeight = childHeight;
+                    // calculate child total size include margin.
+                    childWidth = getChildAt(i).getMeasuredWidth() +
+                            params.leftMargin + params.rightMargin;
+                    childHeight = getChildAt(i).getMeasuredHeight() +
+                            params.topMargin + params.bottomMargin;
+                    eachLineHeight = childHeight;
 
-                lineWidth += childWidth;
-                if (lineWidth >= widthSpecSize) {
-                    lines++;
-                    lineWidth = childWidth;
-                    mMaxWidth = widthSpecSize;
+                    lineWidth += childWidth;
+                    if (lineWidth >= widthSpecSize) {
+                        lines++;
+                        lineWidth = childWidth;
+                        mMaxWidth = widthSpecSize;
+                    }
                 }
+            } else {
+                int childCount = getChildCount();
+                if (childCount > 0) {
+                    int index = 0;
+                    MarginLayoutParams params = (MarginLayoutParams)
+                            getChildAt(index).getLayoutParams();
+                    eachLineHeight = getChildAt(index).getMeasuredHeight() +
+                            params.topMargin + params.bottomMargin;
+                }
+                lines = (childCount / mMaxItemsInOneLine) +
+                        (childCount % mMaxItemsInOneLine == 0 ? 0 : 1);
+                System.out.println("childCount = " + childCount);
+                System.out.println("mMaxItemsInOneLine = " + mMaxItemsInOneLine);
+                System.out.println("lines = " + lines);
             }
 
             mMaxHeight = eachLineHeight * lines;
